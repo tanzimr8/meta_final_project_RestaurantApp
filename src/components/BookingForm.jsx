@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 
-const BookingForm = () => {
-    const [formData, setFormData] = useState();
+const BookingForm = ({initializeTimes,dispatch}) => {
     const [date,setDate] = useState('');
     const [time,setTime] = useState('17:00');
     const [guestNumber,setGuestNumber] = useState(1);
     const [occasion, setOccasion] = useState('');
-    const [availableItmes, setAvailableItmes] = useState(['17:00','18:00','19:00','20:00','21:00']);
     const handleSubmit= (e)=>{
         e.preventDefault();
         alert('Your reservation is booked');
@@ -22,11 +20,11 @@ const BookingForm = () => {
     <div className='BookingFrom'>
     <form onSubmit={handleSubmit}>
         <label for="res-date">Choose date</label>
-        <input type="date" id="res-date" value={date} onChange={(e)=>{setDate(e.target.value)}}/>
+        <input type="date" id="res-date" value={date} onChange={(e)=>dispatch({type : e.target.value})}/>
         <label for="res-time">Choose time</label>
         <select id="res-time " value={time} onChange={(e)=>{setTime(e.target.value)}}>
-            {availableItmes.map((availableItme)=>{
-                return <option>{availableItme}</option>
+            {initializeTimes.map((item)=>{
+                return <option>{item}</option>
             })}
         </select>
         <label for="guests">Number of guests</label>
